@@ -9,18 +9,12 @@
 
 ATestBasePlatform::ATestBasePlatform()
 {
-	PlatformMesh = CreateDefaultSubobject<UStaticMeshComponent>("PlatformMesh");
-	PlatformMesh->SetupAttachment(RootComponent);
-	
 	GetStaticMeshComponent()->OnComponentHit.AddDynamic(this, &ATestBasePlatform::OnBarrierComponentHit);
 }
 
 void ATestBasePlatform::Tick(float DeltaSeconds)
 {
 	Super::Tick(DeltaSeconds);
-	//Since this logic does not affect the gameplay, it can be implemented in a tick without replication*/
-	if(bIsActive && HasAuthority())
-		PlatformMesh->AddRelativeRotation(SpeedDownPlatform);
 }
 
 void ATestBasePlatform::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
@@ -48,9 +42,8 @@ void ATestBasePlatform::OnBarrierComponentHit(UPrimitiveComponent* HitComponent,
 {
 	if(AtestCharacter* Character = Cast<AtestCharacter>(OtherActor))
 	{
-		
 		FVector Impuls = NormalImpulse.GetSafeNormal();
-		Character->GetCharacterMovement()->AddImpulse(Impuls*StrengthIpulse,true);
+		Character->GetCharacterMovement()->AddImpulse(Impuls*StrengthImpulse,true);
 		GetStaticMeshComponent()->SetPhysicsAngularVelocityInRadians(NewAngVelocityBarrier);
 	}
 }
@@ -58,6 +51,5 @@ void ATestBasePlatform::OnBarrierComponentHit(UPrimitiveComponent* HitComponent,
 void ATestBasePlatform::StartPlay()
 {
 	GetWorld()->GetTimerManager().SetTimer(TimerSetVelocityRotation, this, &ATestBasePlatform::SetVelocity,RateSpeedTimerVelocity,true);
-	bIsActive = true;
 }
 

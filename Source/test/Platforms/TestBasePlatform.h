@@ -16,6 +16,7 @@ public:
 	ATestBasePlatform();
 
 protected:
+	
 	virtual void Tick(float DeltaSeconds) override;
 	
 	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
@@ -24,13 +25,6 @@ protected:
 	
 	UFUNCTION()
 	void SetVelocity();
-
-	bool bIsActive = false;
-	
-	UPROPERTY(EditAnywhere,BlueprintReadWrite)
-	UStaticMeshComponent* PlatformMesh;
-
-	FTimerHandle TimerRotationBarrier;
 	
 	FTimerHandle TimerSetVelocityRotation;
 
@@ -41,17 +35,13 @@ protected:
 	FVector NewAngVelocityBarrier = FVector(0.f,0.f,3.f);
 
 	UPROPERTY(EditDefaultsOnly,BlueprintReadWrite)
-	float StrengthIpulse = 500;
-	
-	UPROPERTY(EditDefaultsOnly,BlueprintReadWrite)
-	FRotator SpeedDownPlatform = FRotator(0.f,-2.f,0.f);
+	float StrengthImpulse = 500;
 	
 	UFUNCTION()
 	void OnBarrierComponentHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit);
+
 public:
 
 	void StartPlay();
-	
-	
 };
 
