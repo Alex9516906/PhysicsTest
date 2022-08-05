@@ -19,8 +19,8 @@ void ATestBasePlatform::Tick(float DeltaSeconds)
 {
 	Super::Tick(DeltaSeconds);
 	//Since this logic does not affect the gameplay, it can be implemented in a tick without replication*/
-	if(bIsActive)
-		PlatformMesh->AddRelativeRotation(FRotator(0.f,-1.f,0.f));
+	if(bIsActive && HasAuthority())
+		PlatformMesh->AddRelativeRotation(SpeedDownPlatform);
 }
 
 void ATestBasePlatform::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
@@ -48,9 +48,10 @@ void ATestBasePlatform::OnBarrierComponentHit(UPrimitiveComponent* HitComponent,
 {
 	if(AtestCharacter* Character = Cast<AtestCharacter>(OtherActor))
 	{
+		
 		FVector Impuls = NormalImpulse.GetSafeNormal();
-		Character->GetCharacterMovement()->AddImpulse(Impuls*1000,true);
-		GetStaticMeshComponent()->SetPhysicsAngularVelocityInRadians(NewAngVelocityPlatform);
+		Character->GetCharacterMovement()->AddImpulse(Impuls*StrengthIpulse,true);
+		GetStaticMeshComponent()->SetPhysicsAngularVelocityInRadians(NewAngVelocityBarrier);
 	}
 }
 

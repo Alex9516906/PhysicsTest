@@ -38,14 +38,14 @@ protected:
 	float RateSpeedTimerVelocity = 0.1f;
 
 	UPROPERTY(EditDefaultsOnly,BlueprintReadWrite)
-	float RateSpeedRefreshVariables = 0.1f;
-	
-	UPROPERTY(EditDefaultsOnly,BlueprintReadWrite)
-	FVector NewAngVelocityPlatform = FVector(0.f,0.f,1.f);
-
-	UPROPERTY(EditDefaultsOnly,BlueprintReadWrite)
 	FVector NewAngVelocityBarrier = FVector(0.f,0.f,3.f);
 
+	UPROPERTY(EditDefaultsOnly,BlueprintReadWrite)
+	float StrengthIpulse = 500;
+	
+	UPROPERTY(EditDefaultsOnly,BlueprintReadWrite)
+	FRotator SpeedDownPlatform = FRotator(0.f,-2.f,0.f);
+	
 	UFUNCTION()
 	void OnBarrierComponentHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit);
 public:
