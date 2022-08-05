@@ -15,7 +15,7 @@ ATestGameMode::ATestGameMode()
 void ATestGameMode::BeginPlay()
 {
 	Super::BeginPlay();
-	GameSession->MaxPlayers = 2;
+	GameSession->MaxPlayers = MaxPlayers;
 }
 
 void ATestGameMode::PostLogin(APlayerController* NewPlayer)
